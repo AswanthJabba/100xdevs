@@ -19,12 +19,28 @@ const app = express();
 
 
 app.get('/files', (req, res)=>{
-  
+  try {
+    let files = fs.readdirSync('files/');
+    res.json({files})
+  } catch (error) {
+    console.error('Error reading directory:', error);
+    res.sendStatus(400)
+  }
 });
 
 app.get('/file/:fileName', (req, res)=>{
-    
+  const fileName = req.params.fileName;
+  const filePath = 'files/' + fileName
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      res.sendStatus(404);
+      return;
+    }
+    res.send(data);
+  });
 });
 
+app.listen(3000);
 
 module.exports = app;
