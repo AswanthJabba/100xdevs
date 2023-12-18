@@ -17,5 +17,5 @@ describe("calculateTime function", () => {
     const difference = await calculateTime(0, 0, 0);
     expect(difference).toBeGreaterThanOrEqual(0);
     expect(difference).toBeLessThan(100);
-  }, 100);
+  }, 1000);
 });

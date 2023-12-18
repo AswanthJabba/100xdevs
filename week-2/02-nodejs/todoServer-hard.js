@@ -113,4 +113,8 @@ app.delete('/todos/:id', (req, res)=>{
   res.sendStatus(404);
 });
 
+
+
+app.listen(3000);
+
 module.exports = app;
