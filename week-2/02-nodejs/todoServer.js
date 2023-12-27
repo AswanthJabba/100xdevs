@@ -64,7 +64,7 @@ app.get('/todos/:id', (req, res)=>{
       if(id === element.id){
         res.json({element});        
         res.sendStatus(200);
-        return;
+        // return;
       }
     });
     res.sendStatus(404);
@@ -88,16 +88,16 @@ app.post('/todos', (req, res)=>{
 
 app.put('/todos/:id', (req, res)=>{
   const id = req.params.id;
-  const title = req.params.title;
-  const description = req.params.description;
-  todos.forEach(element => {
-    if(id === element.id){
+  const title = req.body.title;
+  const description = req.body.description;
+  for (let element of todos) {
+    if(id == element.id){
       element.title = title;
-      element.description = description;        
+      element.description = description;
       res.sendStatus(200);
       return;
-    }
-  });    
+    }    
+  }
   res.sendStatus(404);
 });
 
@@ -112,5 +112,7 @@ app.delete('/todos/:id', (req, res)=>{
   }
   res.sendStatus(404);
 });
+
+app.listen(3000)
 
 module.exports = app;
