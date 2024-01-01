@@ -15,8 +15,23 @@ const jwtPassword = 'secret';
  */
 function signJwt(username, password) {
     // Your code here
+    let re = /\S+@\S+\.\S+/;
+    let validEmail = re.test(username);
+    let passwordLength = password.length;
+    if(passwordLength >= 6 && validEmail){
+        let token = jwt.sign({ username: username }, jwtPassword);
+        return token
+        // res.json({
+        //   token,
+        // });
+    }
+    else{
+        return null
+        // res.send(null);
+    }
 }
-
+const token = signJwt('kirat@gmail.com', '123456' );
+console.log(token);
 /**
  * Verifies a JWT using a secret key.
  *
@@ -27,6 +42,21 @@ function signJwt(username, password) {
  */
 function verifyJwt(token) {
     // Your code here
+    // const token = req.headers.authorization;
+    try {
+        const decoded = jwt.verify(token, jwtPassword);
+        const username = decoded.username;
+        return true;
+        res.json({
+            users:ALL_USERS
+        })
+    // return a list of users other than this username
+    } catch (err) {
+        return false;
+        return res.status(403).json({
+            msg: "Invalid token",
+        });
+    }
 }
 
 /**
@@ -38,6 +68,20 @@ function verifyJwt(token) {
  */
 function decodeJwt(token) {
     // Your code here
+    try {
+        const decoded = jwt.verify(token, jwtPassword);
+        const username = decoded.username;
+        return true;
+        res.json({
+            users:ALL_USERS
+        })
+    // return a list of users other than this username
+    } catch (err) {
+        return false;
+        return res.status(403).json({
+            msg: "Invalid token",
+        });
+    }
 }
 
 

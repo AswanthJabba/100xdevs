@@ -1,19 +1,31 @@
 const mongoose = require('mongoose');
-
+require('dotenv').config();
 // Connect to MongoDB
-mongoose.connect('your-mongodb-url');
+mongoose.connect(process.env.MONGODB_URI);
 
 // Define schemas
 const AdminSchema = new mongoose.Schema({
     // Schema definition here
+    username: String, 
+    password: String,
+    courses: Array
 });
 
 const UserSchema = new mongoose.Schema({
     // Schema definition here
+    username: String, 
+    password: String,
+    courses: Array
 });
 
 const CourseSchema = new mongoose.Schema({
     // Schema definition here
+    title: String,
+    description: String,
+    price: Number,
+    image: String,
+    admin: String,
+    courseId: String   
 });
 
 const Admin = mongoose.model('Admin', AdminSchema);
